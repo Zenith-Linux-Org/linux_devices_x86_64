@@ -1,0 +1,47 @@
+# Zenith Linux Board Configuration
+# Target: x86_64 (Baseline: x86-64-v3)
+
+[target]
+arch = "x86_64"
+triple = "x86_64-unknown-linux-musl"
+
+[toolchain]
+# Hardened C23 baseline with mandatory ASan/UBSan and zero warnings
+common_cflags = [
+    "-std=c23",
+    "-O2",
+    "-pipe",
+    "-march=x86-64-v3",
+    "-fno-omit-frame-pointer",
+    "-fsanitize=address,undefined",
+    "-Wall",
+    "-Wextra",
+    "-Werror"
+]
+ldflags = [
+    "-fsanitize=address,undefined"
+]
+
+[kernel]
+# Standard Makefile wrapper configuration
+tree_path = "kernel/linux"
+config = "zenith_defconfig"
+firmware_path = "kernel/firmware"
+image_type = "bzImage"
+
+# ==============================================================================
+# WARNING: All packages listed below are built at image build-time. Removing
+# ANY package will result in boot failure, init panic, or broken networking.
+# ==============================================================================
+[packages]
+system = [
+    "musl",
+    "zenith-heart",
+    "zenith-agent",
+    "llama-cpp",
+    "nanox",
+    "fish",
+    "alsa",
+    "iwd",
+    "wpa_supplicant"
+]
