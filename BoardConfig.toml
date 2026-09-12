@@ -6,21 +6,18 @@ arch = "x86_64"
 triple = "x86_64-unknown-linux-musl"
 
 [toolchain]
-# Hardened C23 baseline with mandatory ASan/UBSan and zero warnings
+# TODO: ASan/UBSan requires musl-specific runtime (not available in current prebuilts)
 common_cflags = [
     "-std=c23",
     "-O2",
     "-pipe",
     "-march=x86-64-v3",
     "-fno-omit-frame-pointer",
-    "-fsanitize=address,undefined",
     "-Wall",
     "-Wextra",
     "-Werror"
 ]
-ldflags = [
-    "-fsanitize=address,undefined"
-]
+ldflags = []
 
 [kernel]
 # Standard Makefile wrapper configuration
@@ -37,6 +34,7 @@ image_type = "bzImage"
 system = [
     "musl",
     "zenith-heart",
+    "curl",
     "zenith-agent",
     "llama-cpp",
     "nanox",
