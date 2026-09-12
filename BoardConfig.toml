@@ -37,6 +37,7 @@ system = [
     "curl",
     "zenith-agent",
     "llama-cpp",
+    "busybox",
     "nanox",
     "fish",
     "alsa",
